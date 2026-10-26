@@ -1,12 +1,12 @@
 const $ = (id) => document.getElementById(id);
 
-function row(label, on, onText, offText) {
+function row(label, on, onText, offText, neutral) {
   const li = document.createElement('li');
   const a = document.createElement('span');
   a.textContent = label;
   const b = document.createElement('span');
   b.textContent = on ? onText : offText;
-  b.className = on ? 'on' : 'off';
+  b.className = neutral ? 'neutral' : on ? 'on' : 'off';
   li.append(a, b);
   return li;
 }
@@ -29,9 +29,9 @@ async function init() {
   const d = $('details');
   d.append(
     row('PlayReady hardware (SL3000)', r.prHw, 'available', 'off'),
-    row('PlayReady software (SL2000)', r.prSw, 'available', 'unavailable'),
+    row('PlayReady software (SL2000)', r.prSw, 'available', 'unavailable', true),
     row('Widevine hardware', r.wvHw, 'available', 'off'),
-    row('Widevine software (L3)', r.wvSw, 'available', 'unavailable')
+    row('Widevine software (L3)', r.wvSw, 'available', 'unavailable', true)
   );
 }
 

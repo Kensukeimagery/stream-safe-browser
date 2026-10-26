@@ -22,6 +22,16 @@ If Edge is already running, the shortcut offers to restart it. Choose **Yes**; y
 
 Uninstall: double-click `Uninstall.bat`.
 
+## How it looks
+
+![4 steps: download, Install.bat, open Stream-safe, share on Discord](assets/steps.png)
+
+## Before / after
+
+![Before and after: normal Edge vs Stream-safe](assets/before-after.png)
+
+The popup shots are real screenshots from Edge. The capture result was measured on a real Netflix account (see "Test results" below). No Netflix frames are included because they are copyrighted.
+
 ## Why the screen goes black
 
 Streaming sites use DRM. With GPU acceleration on, Edge uses **PlayReady hardware DRM**, a protected

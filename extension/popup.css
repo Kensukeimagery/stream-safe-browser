@@ -9,7 +9,7 @@ h1{font-size:15px;margin:0 0 10px}
 .explain{color:var(--mut);margin:8px 0}
 .details{list-style:none;margin:0 0 10px;padding:0}
 .details li{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--card)}
-.details .on{color:var(--warn)}.details .off{color:var(--ok)}
+.details .on{color:var(--warn)}.details .off{color:var(--ok)}.details .neutral{color:var(--mut)}
 .fix{background:var(--card);border-radius:8px;padding:10px;margin-bottom:10px}
 .fix p{margin:6px 0;color:var(--mut)}
 code{display:block;word-break:break-all;padding:6px;border-radius:6px;background:rgba(127,127,127,.18);font-size:12px}
