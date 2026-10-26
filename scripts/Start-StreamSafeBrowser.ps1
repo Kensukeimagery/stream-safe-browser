@@ -20,6 +20,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$restArgs = @($Rest | Where-Object { $_ })
 Add-Type -AssemblyName System.Windows.Forms
 
 $profiles = @{
@@ -83,9 +84,9 @@ if ($running -and -not $alreadyOk) {
     Start-Sleep -Milliseconds 800
     $extra += '--restore-last-session'
   } else {
-    Start-Process -FilePath $exePath -ArgumentList $Rest
+    if ($restArgs) { Start-Process -FilePath $exePath -ArgumentList $restArgs } else { Start-Process -FilePath $exePath }
     exit 0
   }
 }
 
-Start-Process -FilePath $exePath -ArgumentList (@($p.Flag) + $extra + $Rest)
+Start-Process -FilePath $exePath -ArgumentList (@($p.Flag) + $extra + $restArgs)

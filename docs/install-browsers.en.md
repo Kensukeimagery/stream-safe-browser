@@ -146,6 +146,12 @@ Most likely first:
 2. The browser is still running in the background (Edge's Startup boost, a tray icon). Close it fully. In Edge also turn off **Startup boost** in `edge://settings/system`.
 3. The flag does not work for this browser. Report it in Issues with the browser name and version.
 
+**Edge was closed but did not reopen / clicking Yes did nothing**
+A bug in version 1.3.0 (fixed in 1.3.1). Download the latest release and run `Install.bat` again to update the launcher. Meanwhile open Edge from the normal icon.
+
+**Why turn off Startup boost**
+Edge waiting in the background (Startup boost) is started at boot without the flag, so the shortcut has to ask to restart every time. Turn it off in `edge://settings/system` → Startup boost.
+
 **The extension vanished after a restart / says it is corrupted**
 You deleted or moved the `extension` folder. Put it back, or **Load unpacked** again from its new place.
 
