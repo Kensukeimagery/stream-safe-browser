@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.png" alt="Stream-safe Browser: share Netflix and Disney+ on Discord without the black screen" width="100%"></p>
+
 # Stream-safe Browser
 
 **Discord screen share shows a black screen on Netflix / Disney+? Fix it without turning off GPU acceleration.**

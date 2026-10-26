@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.png" alt="Stream-safe Browser: share Netflix and Disney+ on Discord without the black screen" width="100%"></p>
+
 # Stream-safe Browser
 
 **แชร์จอ Discord ตอนดู Netflix / Disney+ แล้วจอดำ? แก้ได้ โดยไม่ต้องปิด Graphics acceleration**

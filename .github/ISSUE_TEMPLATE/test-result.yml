@@ -1,0 +1,21 @@
+name: Test result / ผลการทดสอบ
+description: Tell us whether it worked for you / บอกว่าใช้ได้หรือไม่
+body:
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result / ผลลัพธ์
+      options: ["Works (no black screen)", "Still black", "Other"]
+    validations: { required: true }
+  - type: input
+    id: edge
+    attributes:
+      label: Edge version (edge://version)
+  - type: input
+    id: site
+    attributes:
+      label: Site tested (Netflix, Disney+, ...)
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes (extension popup status, edge://gpu "PlayReady Hardware DRM disabled", Discord settings)
