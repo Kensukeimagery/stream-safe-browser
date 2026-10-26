@@ -41,10 +41,23 @@
 ติดตั้ง: เปิด `edge://extensions` → เปิด **Developer mode** → **Load unpacked** → เลือกโฟลเดอร์ `extension`
 ถ้าขึ้น *Stream-safe: hardware DRM is OFF* แปลว่าใช้งานได้
 
+## ผลทดสอบจริง (Edge 156, Windows 11, GTX 1070)
+
+ทดสอบบนบัญชี Netflix จริง เล่นเรื่องเดียวกันที่ 1080p ด้วย DRM (`mediaKeys` เปิด) และใช้เครื่องมือจับภาพตัวเดียวกัน:
+
+| โหมด | `PlayReady hardware` | ภาพวิดีโอที่จับได้ |
+|---|---|---|
+| Edge ปกติ (GPU เปิด) | เปิด | **ดำ** |
+| Stream-safe (GPU เปิด + flag) | ปิด | **เห็นภาพปกติ** |
+
+- Netflix ยังเล่น **1080p** ได้ในโหมด Stream-safe
+- Disney+ เล่นได้และ DRM ทำงาน แต่ช่วงเริ่ม (วิดีโอแนะนำ 480p) ยังไม่ใช่เส้นทาง hardware จึงไม่ใช่การเทียบที่ชัด
+- การจับภาพด้วย Windows Graphics Capture ในเครื่องทดสอบไม่ได้ดำแม้ในโหมดปกติ ผลของ Discord จึงขึ้นกับโหมดจับภาพของ Discord (ดูหัวข้อถัดไป) และยังไม่ได้ยืนยันกับ Discord จริง รบกวนช่วยรายงานผลใน Issues
+
 ## ยังดำอยู่?
 
 1. ตรวจว่าเปิด Edge จากทางลัด Stream-safe (extension ต้องขึ้น OFF) และปิด **Startup boost** ที่ `edge://settings/system` ไม่เช่นนั้น Edge ที่รออยู่เบื้องหลังอาจเปิดโดยไม่มีการตั้งค่านี้
-2. Discord → Settings → Voice & Video → ปิด **Use our latest technology to capture your screen** แล้วลองใหม่
+2. Discord → Settings → Voice & Video → ปิด (หรือเปิด ถ้าตอนนี้ปิดอยู่) **Use our latest technology to capture your screen** แล้วลองใหม่ สองโหมดนี้จับภาพต่างกัน และเปิด **Hardware Acceleration** ของ Discord ไว้ (Settings → Advanced)
 3. ลองแชร์ "หน้าต่าง" แทน "หน้าจอ" หรือกลับกัน
 4. เปิด `edge://gpu` ดูว่า *PlayReady Hardware DRM disabled* เป็น `true`
 

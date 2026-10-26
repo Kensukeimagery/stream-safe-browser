@@ -42,11 +42,25 @@ This project disables **only hardware DRM**; the GPU keeps working. Measured on 
 streaming sites. Install: `edge://extensions` → enable **Developer mode** → **Load unpacked** → pick the `extension` folder.
 *Stream-safe: hardware DRM is OFF* means it is working.
 
+## Test results (Edge 156, Windows 11, GTX 1070)
+
+Tested on a real Netflix account, same title at 1080p with DRM active (`mediaKeys` set), same capture tool:
+
+| Mode | PlayReady hardware | Captured video |
+|---|---|---|
+| Normal Edge (GPU on) | on | **black** |
+| Stream-safe (GPU on + flag) | off | **picture visible** |
+
+- Netflix still plays at **1080p** in Stream-safe mode.
+- Disney+ plays with DRM active, but its start (480p intro) is not the hardware path, so it is not a clean comparison.
+- Windows Graphics Capture on the test machine was not black even in normal mode, so the Discord outcome depends on
+  Discord's capture mode (next section) and is not yet confirmed with real Discord. Please report results in Issues.
+
 ## Still black?
 
 1. Make sure Edge was started from the Stream-safe shortcut (the extension must say OFF), and turn off
    **Startup boost** in `edge://settings/system`, otherwise a background Edge may start without the setting.
-2. Discord → Settings → Voice & Video → turn off **Use our latest technology to capture your screen**.
+2. Discord → Settings → Voice & Video → toggle **Use our latest technology to capture your screen** (try both states; they capture differently) and keep Discord's own **Hardware Acceleration** on (Settings → Advanced).
 3. Try sharing the window instead of the screen, or the reverse.
 4. Open `edge://gpu`: *PlayReady Hardware DRM disabled* should be `true`.
 
