@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stream-safe Check</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>Stream-safe Check</h1>
+  <div id="verdict" class="verdict wait">Checking… (the first check can take a few seconds)</div>
+  <p id="explain" class="explain"></p>
+  <ul id="details" class="details"></ul>
+  <div id="fix" class="fix" hidden>
+    <strong>Fix (keeps GPU acceleration on)</strong>
+    <p>Close Edge fully, then start it with this flag. The bundled
+    <em>Stream-safe Edge</em> shortcut does this for you.</p>
+    <code id="flag">--enable-features=msDisablePlayReadyHardwareDrm</code>
+    <button id="copy" type="button">Copy flag</button>
+  </div>
+  <label class="opt"><input type="checkbox" id="banner"> Show a notice on streaming sites when hardware DRM is on</label>
+  <script src="probe.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
