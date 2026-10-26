@@ -87,7 +87,7 @@
    .\scripts\Install-StreamSafeShortcut.ps1 -Browser chrome
 
    # เบราว์เซอร์อื่น: ระบุ path และ flag เอง
-   .\scripts\Install-StreamSafeShortcut.ps1 -Browser custom -ExePath "C:\path	orowser.exe" -Flag "--disable-features=HardwareSecureDecryption"
+   .\scripts\Install-StreamSafeShortcut.ps1 -Browser custom -ExePath "C:\path\to\browser.exe" -Flag "--disable-features=HardwareSecureDecryption"
    ```
 4. เปิดจากทางลัดใหม่ แล้วดูว่า popup เปลี่ยนเป็น OFF ไหม ถ้าเปลี่ยน ลองแชร์จอ
 5. บอกผลที่ [Issues](https://github.com/Kensukeimagery/stream-safe-browser/issues/new?template=test-result.yml) เลือกเบราว์เซอร์ของคุณ ผมจะอัปเดตตารางนี้

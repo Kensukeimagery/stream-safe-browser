@@ -89,7 +89,7 @@ Tested on a real Netflix account, same title at 1080p with DRM active (`mediaKey
    .\scripts\Install-StreamSafeShortcut.ps1 -Browser chrome
 
    # Any other browser: give the exe path and the flag yourself
-   .\scripts\Install-StreamSafeShortcut.ps1 -Browser custom -ExePath "C:\path	orowser.exe" -Flag "--disable-features=HardwareSecureDecryption"
+   .\scripts\Install-StreamSafeShortcut.ps1 -Browser custom -ExePath "C:\path\to\browser.exe" -Flag "--disable-features=HardwareSecureDecryption"
    ```
 4. Start the browser from the new shortcut and check that the popup now says OFF. If it does, try the screen share.
 5. Report the result in [Issues](https://github.com/Kensukeimagery/stream-safe-browser/issues/new?template=test-result.yml) and pick your browser. The table above will be updated.
