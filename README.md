@@ -77,6 +77,10 @@
 | Firefox และตัวแตก | ❌ ไม่รองรับ | คนละเอนจิน ไม่มี flag นี้ และยังไม่มีสวิตช์ที่ยืนยันแล้ว |
 | macOS / Linux / มือถือ | ❌ ไม่รองรับ | โปรเจกต์นี้เป็น Windows เท่านั้น (Windows 10 ก็ยังไม่ได้ทดสอบ) |
 
+**คู่มือติดตั้งละเอียดทีละเบราว์เซอร์ (Edge, Chrome, Brave, Vivaldi, Opera, อื่นๆ): [docs/install-browsers.th.md](docs/install-browsers.th.md)**
+
+มีไฟล์ดับเบิลคลิกให้: `Install.bat` (Edge), `Install-Chrome.bat`, `Install-Brave.bat`, `Install-Vivaldi.bat` และ `Install-Other-Browser.bat` (ลากไฟล์ .exe ของเบราว์เซอร์มาวางทับ)
+
 ### ลองกับเบราว์เซอร์ของคุณ (2 นาที)
 
 1. ติดตั้ง `extension/` ในเบราว์เซอร์นั้น แล้วเปิด popup

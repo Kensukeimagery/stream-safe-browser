@@ -79,6 +79,10 @@ Tested on a real Netflix account, same title at 1080p with DRM active (`mediaKey
 | Firefox and forks | ❌ Not supported | Different engine, no such flag, no verified equivalent |
 | macOS / Linux / mobile | ❌ Not supported | Windows only (Windows 10 is also untested) |
 
+**Detailed step-by-step guide per browser (Edge, Chrome, Brave, Vivaldi, Opera, others): [docs/install-browsers.en.md](docs/install-browsers.en.md)**
+
+Double-click files are included: `Install.bat` (Edge), `Install-Chrome.bat`, `Install-Brave.bat`, `Install-Vivaldi.bat` and `Install-Other-Browser.bat` (drag your browser's .exe onto it).
+
 ### Try it on your browser (2 minutes)
 
 1. Install `extension/` in that browser and open the popup.
