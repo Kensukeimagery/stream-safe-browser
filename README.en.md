@@ -10,7 +10,7 @@ English · [ภาษาไทย](README.md)
 [![Release](https://img.shields.io/github/v/release/Kensukeimagery/stream-safe-browser?style=for-the-badge)](https://github.com/Kensukeimagery/stream-safe-browser/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
-> For **Microsoft Edge on Windows** (tested on Edge 156). Chrome / Brave are supported but untested.
+> Tested on **Microsoft Edge (Windows 11)**. For other browsers see the [compatibility table](#which-browsers-work).
 
 ## Install in 3 steps
 
@@ -65,6 +65,34 @@ Tested on a real Netflix account, same title at 1080p with DRM active (`mediaKey
 - Disney+ plays with DRM active, but its start (480p intro) is not the hardware path, so it is not a clean comparison.
 - Windows Graphics Capture on the test machine was not black even in normal mode, so the Discord outcome depends on
   Discord's capture mode (next section) and is not yet confirmed with real Discord. Please report results in Issues.
+
+## Which browsers work
+
+| Browser | Status | What is actually known |
+|---|---|---|
+| **Microsoft Edge** (Windows 11) | ✅ **Tested, works** | Measured on Netflix: black normally, picture in Stream-safe, still 1080p |
+| Edge Beta / Dev / Canary | ⚪ Untested | Same engine, the same flag is expected to work. Try `custom` |
+| Google Chrome | ⚪ Untested | Not installed on the test machine. Chrome has no PlayReady, so it may not have this problem at all. The flag in the script is unverified |
+| Brave | 🟡 Tested, **inconclusive** | A fresh profile has no Widevine (Brave ships it off until enabled), so every DRM level was false and there was nothing to measure |
+| Vivaldi | ⚪ Untested | Built-in mode uses the Chrome-style flag, unverified |
+| Opera / Opera GX | ⚪ Untested | Use `custom` mode |
+| Firefox and forks | ❌ Not supported | Different engine, no such flag, no verified equivalent |
+| macOS / Linux / mobile | ❌ Not supported | Windows only (Windows 10 is also untested) |
+
+### Try it on your browser (2 minutes)
+
+1. Install `extension/` in that browser and open the popup.
+2. If it already says **hardware DRM is OFF**, this browser does not have this cause. See "Still black?" instead.
+3. If it says **ON**, create a shortcut:
+   ```powershell
+   # Chrome / Brave / Vivaldi (flag unverified)
+   .\scripts\Install-StreamSafeShortcut.ps1 -Browser chrome
+
+   # Any other browser: give the exe path and the flag yourself
+   .\scripts\Install-StreamSafeShortcut.ps1 -Browser custom -ExePath "C:\path	orowser.exe" -Flag "--disable-features=HardwareSecureDecryption"
+   ```
+4. Start the browser from the new shortcut and check that the popup now says OFF. If it does, try the screen share.
+5. Report the result in [Issues](https://github.com/Kensukeimagery/stream-safe-browser/issues/new?template=test-result.yml) and pick your browser. The table above will be updated.
 
 ## Still black?
 

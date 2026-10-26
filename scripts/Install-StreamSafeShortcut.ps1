@@ -5,14 +5,18 @@
 #>
 [CmdletBinding()]
 param(
-  [ValidateSet('edge', 'chrome', 'brave')]
+  [ValidateSet('edge', 'chrome', 'brave', 'vivaldi', 'custom')]
   [string]$Browser = 'edge',
+  # Only for -Browser custom (e.g. Opera, Firefox forks): exe path and the start-up flag.
+  [string]$ExePath,
+  [string]$Flag,
   [switch]$Uninstall
 )
 
 $ErrorActionPreference = 'Stop'
-$names = @{ edge = 'Microsoft Edge'; chrome = 'Google Chrome'; brave = 'Brave' }
-$exes  = @{ edge = 'msedge.exe'; chrome = 'chrome.exe'; brave = 'brave.exe' }
+$names = @{ edge = 'Microsoft Edge'; chrome = 'Google Chrome'; brave = 'Brave'; vivaldi = 'Vivaldi'; custom = 'Custom browser' }
+$exes  = @{ edge = 'msedge.exe'; chrome = 'chrome.exe'; brave = 'brave.exe'; vivaldi = 'vivaldi.exe'; custom = '' }
+if ($Browser -eq 'custom' -and $ExePath) { $names['custom'] = [IO.Path]::GetFileNameWithoutExtension($ExePath) }
 $title = "$($names[$Browser]) (Stream-safe)"
 
 $targets = @(
@@ -44,10 +48,15 @@ $launcher = Join-Path $installDir 'Start-StreamSafeBrowser.ps1'
 Copy-Item -LiteralPath $source -Destination $launcher -Force
 
 $iconExe = $null
-foreach ($root in 'HKCU', 'HKLM') {
+if ($Browser -eq 'custom') {
+  if (-not $ExePath -or -not $Flag) { throw '-Browser custom needs both -ExePath and -Flag.' }
+  if (-not (Test-Path $ExePath)) { throw "Not found: $ExePath" }
+  $iconExe = $ExePath
+}
+if (-not $iconExe) { foreach ($root in 'HKCU', 'HKLM') {
   $v = (Get-ItemProperty "${root}:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$($exes[$Browser])" -ErrorAction SilentlyContinue).'(default)'
   if ($v -and (Test-Path $v)) { $iconExe = $v; break }
-}
+} }
 if (-not $iconExe) { throw "$($names[$Browser]) is not installed." }
 
 $shell = New-Object -ComObject WScript.Shell
@@ -59,6 +68,7 @@ foreach ($dir in $targets) {
   $s = $shell.CreateShortcut($tmp)
   $s.TargetPath = (Get-Command powershell.exe).Source
   $s.Arguments = "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$launcher`" -Browser $Browser"
+  if ($Browser -eq 'custom') { $s.Arguments += " -ExePath `"$ExePath`" -Flag `"$Flag`"" }
   $s.IconLocation = "$iconExe,0"
   $s.WorkingDirectory = $installDir
   $s.Description = 'Starts the browser with hardware DRM off so Discord screen share is not black. GPU acceleration stays on.'

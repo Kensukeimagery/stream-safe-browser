@@ -10,7 +10,7 @@
 [![Release](https://img.shields.io/github/v/release/Kensukeimagery/stream-safe-browser?style=for-the-badge)](https://github.com/Kensukeimagery/stream-safe-browser/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
-> ใช้กับ **Microsoft Edge บน Windows** (ทดสอบบน Edge 156). Chrome / Brave ใช้ได้แบบยังไม่ทดสอบ
+> ทดสอบแล้วบน **Microsoft Edge (Windows 11)** เบราว์เซอร์อื่นดู [ตารางด้านล่าง](#ใช้กับเบราว์เซอร์ไหนได้บ้าง) ว่าทดสอบแล้วหรือยัง
 
 ## ติดตั้งใน 3 ขั้นตอน
 
@@ -63,6 +63,34 @@
 - Netflix ยังเล่น **1080p** ได้ในโหมด Stream-safe
 - Disney+ เล่นได้และ DRM ทำงาน แต่ช่วงเริ่ม (วิดีโอแนะนำ 480p) ยังไม่ใช่เส้นทาง hardware จึงไม่ใช่การเทียบที่ชัด
 - การจับภาพด้วย Windows Graphics Capture ในเครื่องทดสอบไม่ได้ดำแม้ในโหมดปกติ ผลของ Discord จึงขึ้นกับโหมดจับภาพของ Discord (ดูหัวข้อถัดไป) และยังไม่ได้ยืนยันกับ Discord จริง รบกวนช่วยรายงานผลใน Issues
+
+## ใช้กับเบราว์เซอร์ไหนได้บ้าง
+
+| เบราว์เซอร์ | สถานะ | ที่รู้จริง |
+|---|---|---|
+| **Microsoft Edge** (Windows 11) | ✅ **ทดสอบแล้ว ใช้ได้** | วัดจริงบน Netflix: ปกติจอดำ, Stream-safe เห็นภาพ และยัง 1080p |
+| Edge Beta / Dev / Canary | ⚪ ยังไม่ทดสอบ | เอนจินเดียวกัน น่าจะใช้ flag เดียวกันได้ ลอง `custom` |
+| Google Chrome | ⚪ ยังไม่ทดสอบ | ไม่ได้ติดตั้งในเครื่องทดสอบ Chrome ไม่มี PlayReady จึงอาจไม่เจอปัญหานี้เลย flag ในสคริปต์ยังไม่ยืนยัน |
+| Brave | 🟡 ทดสอบแล้วแต่ **ตัดสินไม่ได้** | โปรไฟล์ใหม่ไม่มี Widevine (Brave ปิดไว้จนเปิดเอง) ทุกระดับ DRM เป็น false จึงไม่มีอะไรให้วัด |
+| Vivaldi | ⚪ ยังไม่ทดสอบ | มีโหมดในสคริปต์ ใช้ flag แบบ Chrome ซึ่งยังไม่ยืนยัน |
+| Opera / Opera GX | ⚪ ยังไม่ทดสอบ | ใช้โหมด `custom` |
+| Firefox และตัวแตก | ❌ ไม่รองรับ | คนละเอนจิน ไม่มี flag นี้ และยังไม่มีสวิตช์ที่ยืนยันแล้ว |
+| macOS / Linux / มือถือ | ❌ ไม่รองรับ | โปรเจกต์นี้เป็น Windows เท่านั้น (Windows 10 ก็ยังไม่ได้ทดสอบ) |
+
+### ลองกับเบราว์เซอร์ของคุณ (2 นาที)
+
+1. ติดตั้ง `extension/` ในเบราว์เซอร์นั้น แล้วเปิด popup
+2. ถ้าขึ้น **hardware DRM is OFF** อยู่แล้ว แปลว่าเบราว์เซอร์นี้ไม่ได้เจอสาเหตุนี้ ให้ดูข้อ "ยังดำอยู่?" แทน
+3. ถ้าขึ้น **ON** ให้สร้างทางลัด:
+   ```powershell
+   # Chrome / Brave / Vivaldi (flag ยังไม่ยืนยัน)
+   .\scripts\Install-StreamSafeShortcut.ps1 -Browser chrome
+
+   # เบราว์เซอร์อื่น: ระบุ path และ flag เอง
+   .\scripts\Install-StreamSafeShortcut.ps1 -Browser custom -ExePath "C:\path	orowser.exe" -Flag "--disable-features=HardwareSecureDecryption"
+   ```
+4. เปิดจากทางลัดใหม่ แล้วดูว่า popup เปลี่ยนเป็น OFF ไหม ถ้าเปลี่ยน ลองแชร์จอ
+5. บอกผลที่ [Issues](https://github.com/Kensukeimagery/stream-safe-browser/issues/new?template=test-result.yml) เลือกเบราว์เซอร์ของคุณ ผมจะอัปเดตตารางนี้
 
 ## ยังดำอยู่?
 

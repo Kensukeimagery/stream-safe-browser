@@ -10,8 +10,11 @@
 #>
 [CmdletBinding()]
 param(
-  [ValidateSet('edge', 'chrome', 'brave')]
+  [ValidateSet('edge', 'chrome', 'brave', 'vivaldi', 'custom')]
   [string]$Browser = 'edge',
+  # Only for -Browser custom: full path to the browser exe and the flag to start it with.
+  [string]$ExePath,
+  [string]$Flag,
   [Parameter(ValueFromRemainingArguments = $true)]
   [string[]]$Rest
 )
@@ -26,8 +29,16 @@ $profiles = @{
               Flag = '--disable-features=HardwareSecureDecryption' }
   brave  = @{ Exe = 'brave.exe';   Proc = 'brave';   Name = 'Brave'
               Flag = '--disable-features=HardwareSecureDecryption' }
+  vivaldi = @{ Exe = 'vivaldi.exe'; Proc = 'vivaldi'; Name = 'Vivaldi'
+              Flag = '--disable-features=HardwareSecureDecryption' }
 }
-$p = $profiles[$Browser]
+if ($Browser -eq 'custom') {
+  if (-not $ExePath -or -not $Flag) { throw '-Browser custom needs both -ExePath and -Flag.' }
+  $leaf = [IO.Path]::GetFileName($ExePath)
+  $p = @{ Exe = $leaf; Proc = [IO.Path]::GetFileNameWithoutExtension($leaf); Name = $leaf; Flag = $Flag }
+} else {
+  $p = $profiles[$Browser]
+}
 
 function Find-BrowserExe([string]$exe) {
   foreach ($root in 'HKCU', 'HKLM') {
@@ -38,7 +49,7 @@ function Find-BrowserExe([string]$exe) {
   return $null
 }
 
-$exePath = Find-BrowserExe $p.Exe
+$exePath = if ($Browser -eq 'custom') { if (Test-Path $ExePath) { $ExePath } else { $null } } else { Find-BrowserExe $p.Exe }
 if (-not $exePath) {
   [void][System.Windows.Forms.MessageBox]::Show("$($p.Name) was not found on this PC.", 'Stream-safe browser', 'OK', 'Error')
   exit 1
