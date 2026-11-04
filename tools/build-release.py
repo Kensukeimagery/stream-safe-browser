@@ -9,7 +9,7 @@ out = os.path.join('dist', 'stream-safe-browser-windows.zip')
 if os.path.exists(out):
     os.remove(out)
 
-top = ['Install.bat', 'Install-Chrome.bat', 'Install-Brave.bat', 'Install-Vivaldi.bat', 'Install-Other-Browser.bat',
+top = ['Install.bat', 'Install-Chrome.bat', 'Install-Brave.bat', 'Install-Vivaldi.bat', 'Install-Other-Browser.bat', 'Install-Edge-Compat.bat', 'Enable-Auto.bat', 'Disable-Auto.bat',
        'Uninstall.bat', 'Uninstall-Other-Browser.bat', 'README.md', 'README.en.md', 'LICENSE']
 with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
     for f in top:

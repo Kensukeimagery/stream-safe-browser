@@ -98,6 +98,19 @@ Double-click files are included: `Install.bat` (Edge), `Install-Chrome.bat`, `In
 4. Start the browser from the new shortcut and check that the popup now says OFF. If it does, try the screen share.
 5. Report the result in [Issues](https://github.com/Kensukeimagery/stream-safe-browser/issues/new?template=test-result.yml) and pick your browser. The table above will be updated.
 
+## Automatic mode (experimental)
+
+To make Edge start in Stream-safe mode however you open it (normal icon, taskbar, login), without any special shortcut:
+
+1. Double-click **`Enable-Auto.bat`**
+2. Pick a mode (1 = standard, 2 = compat) and whether links from other apps should be covered too
+3. Read the **preview of every change**, then press Y (N changes nothing)
+4. Close Edge completely (also from the tray) and open it normally
+
+What it changes (all per-user, no administrator rights): your Edge shortcuts (Desktop, Start, taskbar) get the flags, Edge's auto-start entry (Startup boost) gets them, and if you choose so, per-user link handlers are created. Original shortcuts are backed up. **Everything is undone by `Disable-Auto.bat`.**
+
+Note: experimental. The shortcut part is tested in a sandbox; the registry and link-handler parts are not yet tested on a real machine. After an Edge update shortcuts may be reset; run `Enable-Auto.bat` again. All-users shortcuts (Public Desktop) are skipped.
+
 ## Still black?
 
 1. Make sure Edge was started from the Stream-safe shortcut (the extension must say OFF), and turn off

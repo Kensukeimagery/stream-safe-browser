@@ -15,6 +15,9 @@ param(
   # Only for -Browser custom: full path to the browser exe and the flag to start it with.
   [string]$ExePath,
   [string]$Flag,
+  # compat = also turn off DirectComposition video overlays (try it if screen share is still black).
+  [ValidateSet('standard', 'compat')]
+  [string]$Mode = 'standard',
   [Parameter(ValueFromRemainingArguments = $true)]
   [string[]]$Rest
 )
@@ -58,6 +61,8 @@ if (-not $exePath) {
 
 function Get-Running { Get-Process -Name $p.Proc -ErrorAction SilentlyContinue }
 
+$allFlags = @($p.Flag)
+if ($Mode -eq 'compat') { $allFlags += '--disable-direct-composition' }
 $flagName = ($p.Flag -split '=')[1]
 $alreadyOk = $false
 $running = Get-Running
@@ -65,7 +70,7 @@ if ($running) {
   $cmd = Get-CimInstance Win32_Process -Filter "Name='$($p.Exe)'" -ErrorAction SilentlyContinue |
     Where-Object { $_.CommandLine -and $_.CommandLine -notmatch '--type=' } |
     Select-Object -First 1 -ExpandProperty CommandLine
-  $alreadyOk = ($cmd -and $cmd -like "*$flagName*")
+  $alreadyOk = ($cmd -and $cmd -like "*$flagName*" -and ($Mode -ne 'compat' -or $cmd -like '*--disable-direct-composition*'))
 }
 
 $extra = @()
@@ -89,4 +94,4 @@ if ($running -and -not $alreadyOk) {
   }
 }
 
-Start-Process -FilePath $exePath -ArgumentList (@($p.Flag) + $extra + $restArgs)
+Start-Process -FilePath $exePath -ArgumentList ($allFlags + $extra + $restArgs)

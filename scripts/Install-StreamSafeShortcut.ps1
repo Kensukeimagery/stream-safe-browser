@@ -10,6 +10,9 @@ param(
   # Only for -Browser custom (e.g. Opera, Firefox forks): exe path and the start-up flag.
   [string]$ExePath,
   [string]$Flag,
+  # compat: second shortcut that also disables DirectComposition video overlays.
+  [ValidateSet('standard', 'compat')]
+  [string]$Mode = 'standard',
   [switch]$Uninstall
 )
 
@@ -17,7 +20,7 @@ $ErrorActionPreference = 'Stop'
 $names = @{ edge = 'Microsoft Edge'; chrome = 'Google Chrome'; brave = 'Brave'; vivaldi = 'Vivaldi'; custom = 'Custom browser' }
 $exes  = @{ edge = 'msedge.exe'; chrome = 'chrome.exe'; brave = 'brave.exe'; vivaldi = 'vivaldi.exe'; custom = '' }
 if ($Browser -eq 'custom' -and $ExePath) { $names['custom'] = [IO.Path]::GetFileNameWithoutExtension($ExePath) }
-$title = "$($names[$Browser]) (Stream-safe)"
+$title = "$($names[$Browser]) (Stream-safe" + $(if ($Mode -eq 'compat') { ', compat)' } else { ')' })
 
 $targets = @(
   [Environment]::GetFolderPath('Desktop'),
@@ -32,7 +35,7 @@ if ($Uninstall) {
     if (Test-Path -LiteralPath $lnk) { Remove-Item -LiteralPath $lnk -Force; Write-Host "Removed $lnk" }
   }
   # The launcher is shared by every browser's shortcut; drop it only when none are left.
-  $others = $targets | ForEach-Object { Get-ChildItem -LiteralPath $_ -Filter '*(Stream-safe).lnk' -ErrorAction SilentlyContinue }
+  $others = $targets | ForEach-Object { Get-ChildItem -LiteralPath $_ -Filter '*(Stream-safe*.lnk' -ErrorAction SilentlyContinue }
   if (-not $others -and (Test-Path $installDir)) { Remove-Item $installDir -Recurse -Force; Write-Host "Removed $installDir" }
   return
 }
@@ -68,6 +71,7 @@ foreach ($dir in $targets) {
   $s = $shell.CreateShortcut($tmp)
   $s.TargetPath = (Get-Command powershell.exe).Source
   $s.Arguments = "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$launcher`" -Browser $Browser"
+  if ($Mode -eq 'compat') { $s.Arguments += ' -Mode compat' }
   if ($Browser -eq 'custom') { $s.Arguments += " -ExePath `"$ExePath`" -Flag `"$Flag`"" }
   $s.IconLocation = "$iconExe,0"
   $s.WorkingDirectory = $installDir
