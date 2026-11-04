@@ -100,6 +100,8 @@ Double-click files are included: `Install.bat` (Edge), `Install-Chrome.bat`, `In
 
 ## Automatic mode (experimental)
 
+> This is only in the **[1.4.0 pre-release](https://github.com/Kensukeimagery/stream-safe-browser/releases/tag/v1.4.0)**. The Download button above still serves the stable release.
+
 To make Edge start in Stream-safe mode however you open it (normal icon, taskbar, login), without any special shortcut:
 
 1. Double-click **`Enable-Auto.bat`**
